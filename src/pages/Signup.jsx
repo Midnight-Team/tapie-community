@@ -1,0 +1,134 @@
+import Button from "../components/Button";
+import { register } from "../lib/api/user";
+import { useState } from "react";
+
+export default function Signup() {
+  const [username, setUsername] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [password, setPassword] = useState("");
+
+  return (
+    <>
+      <style jsx>{`
+        .login {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+
+          font-family: Wanted Sans, Inter, sans-serif;
+        }
+
+        .login > p {
+          width: calc(30% + 3rem);
+          font-weight: bold;
+          font-size: 1.2rem;
+        }
+
+        .container {
+          width: 30%;
+          padding: 1.5rem 1.25rem;
+
+          border: 1px solid #000;
+          border-radius: 0.75rem;
+        }
+
+        .container > button {
+          background-color: #000;
+          color: #fff;
+
+          width: 100%;
+
+          display: flex;
+          justify-content: center;
+
+          margin-top: 4rem;
+        }
+
+        .container > div {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 2rem;
+        }
+
+        .container > div > input {
+          padding: 0.75rem 1rem;
+          border: 1px solid #ebebeb;
+          border-radius: 0.25rem;
+          font-size: 1rem;
+          margin-top: 0.5rem;
+        }
+      `}</style>
+      <section className="login">
+        <p>회원가입</p>
+        <div className="container">
+          <div>
+            <span>유저이름</span>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="유저이름을 입력해주세요"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <div>
+            <span>닉네임</span>
+            <input
+              type="text"
+              name="nickname"
+              id="nickname"
+              placeholder="닉네임을 입력해주세요"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+            />
+          </div>
+          <div>
+            <span>비밀번호</span>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="비밀번호를 입력해주세요"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <Button
+            name="회원가입"
+            onClick={() => {
+              register({
+                username: username,
+                nickname: nickname,
+                password: password,
+              }).then((res) => {
+                console.log(res);
+              });
+            }}
+            iconSvg={
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <path
+                  d="M8.33333 14.1667L12.5 10M12.5 10L8.33333 5.83333M12.5 10H2.5M12.5 2.5H15.8333C16.2754 2.5 16.6993 2.67559 17.0118 2.98816C17.3244 3.30072 17.5 3.72464 17.5 4.16667V15.8333C17.5 16.2754 17.3244 16.6993 17.0118 17.0118C16.6993 17.3244 16.2754 17.5 15.8333 17.5H12.5"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            }
+          />
+        </div>
+      </section>
+    </>
+  );
+}
