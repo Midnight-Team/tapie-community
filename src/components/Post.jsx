@@ -5,11 +5,10 @@ export default function Post({ title, content, username, timestamp }) {
         {`
           .post {
             width: 20vw;
-            height: 35vh;
 
             border: 1px solid #ccc;
             border-radius: 0.5rem;
-            padding: 1.5vw;
+            padding: 0 1.5vw;
           }
 
           .post-title {
@@ -26,16 +25,15 @@ export default function Post({ title, content, username, timestamp }) {
           }
 
           .post-content {
+            width: 100%;
             word-wrap: break-word;
-
-            // FIX IT
             overflow: hidden;
-            white-space: normal;
             text-overflow: ellipsis;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: 5;
             -webkit-box-orient: vertical;
-            word-break: keep-all;
+            word-break: break-word;
+            white-space: normal;
           }
         `}
       </style>

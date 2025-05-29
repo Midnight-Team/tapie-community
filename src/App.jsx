@@ -1,14 +1,13 @@
-import Post from "./components/Post";
+import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <>
-      <Post
-        title={`Title1`}
-        content={`asdfasdfasdfasdfasdfasdfkjsasdfljkafsdjklsdakljfjkldsajklasljksdjklfadskljasfdkljasdfjilafsdjilasdfljfasdjlfasdjljafilsdajlksfdjiafdsljkfasdjlkasfdljksadfjlfasdjklasdfjkllasfjkjklasfdjlkasfdjklasdfjklasfdjklasdfljkdafkljasdkljlkdsjfasdjfklajsdlfjaklsdjf`}
-        username={`username1`}
-        timestamp={`2022-10-10`}
-      />
+      <Navbar />
+      <main>
+        <Home />
+      </main>
     </>
   );
 }
