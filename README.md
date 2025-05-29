@@ -1,12 +1,71 @@
-# React + Vite
+# TAPIE Community 📝
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React와 Vite를 사용하여 구축된 커뮤니티 게시판 웹 애플리케이션입니다.
 
-Currently, two official plugins are available:
+> [!CAUTION]
+> 아마 이 코드를 당신이 볼때에는 백엔드 서버가 작동 안할겁니다. 직접 예시 백엔드 만들거나 예시 데이터 넣어서 UI를 구경해보세요.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 😀 기여자들
 
-## Expanding the ESLint configuration
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/riruhyun">
+        <img src="https://avatars.githubusercontent.com/riruhyun?s=100" width="100" alt="user1" style="border-radius:50%"/>
+      </a>
+      <br/>
+      <a href="https://github.com/riruhyun"><strong>riruhyun</strong></a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/PIXELHIZE">
+        <img src="https://avatars.githubusercontent.com/PIXELHIZE?s=100" width="100" alt="user2" style="border-radius:50%"/>
+      </a>
+      <br/>
+      <a href="https://github.com/PIXELHIZE"><strong>PIXELHIZE</strong></a>
+    </td>
+  </tr>
+</table>
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠 기술 스택
+
+### Frontend
+
+- **React 19.1.0** - UI 라이브러리
+- **Vite 6.3.5** - 빌드 도구 및 개발 서버
+- **React Router DOM 7.6.1** - 클라이언트 사이드 라우팅
+- **Axios 1.9.0** - HTTP 클라이언트
+- **SWR 2.3.3** - 데이터 페칭 라이브러리
+- **TypeScript 5.8.3** - 타입 안전성
+
+### Development Tools
+
+- **ESLint** - 코드 품질 관리
+- **Vite Plugin React** - React 개발 지원
+
+## 🚦 시작하기
+
+### 필수 요구사항
+
+- Node.js 18.0.0 이상
+- npm 또는 yarn
+
+### 설치 및 실행
+
+1. **저장소 클론**
+
+   ```bash
+   git clone <repository-url>
+   cd <folder-name>
+   ```
+
+2. **의존성 설치**
+
+   ```bash
+   npm install
+   ```
+
+3. **개발 서버 시작**
+   ```bash
+   npm run dev
+   ```
+   애플리케이션이 `http://localhost`에서 실행됩니다.
