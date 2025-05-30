@@ -1,11 +1,32 @@
 import Button from "../components/Button";
 import { login } from "../lib/api/user";
 import { useState } from "react";
+import { createPost } from "../lib/api/post";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Write() {
-  const [username, setUsername] = useState("");
+  const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const navigate = useNavigate();
+  //const router = useRouter();
 
+  const handleSubmit = async () => {
+    if (!title || !content) {
+      alert("제목과 내용을 모두 입력해주세요.");
+      return;
+    }
+
+    try {
+      await createPost({
+        title,
+        content,
+      });
+      alert("글이 등록되었습니다.");
+      navigate("/");
+    } catch (err) {
+      setError(err.message || "글 등록에 실패했습니다.");
+    }
+  };
   return (
     <>
       <style jsx>{`
@@ -79,11 +100,11 @@ export default function Write() {
             <span>제목</span>
             <input
               type="text"
-              name="username"
-              id="username"
-              placeholder="유저이름을 입력해주세요"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              name="title"
+              id="title"
+              placeholder="제목을 입력해주세요"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <div>
@@ -100,7 +121,7 @@ export default function Write() {
 
           <Button
             name="등록하기"
-            onClick={() => {}}
+            onClick={handleSubmit}
             iconSvg={
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -4,7 +4,8 @@ export default function Button({ name, iconSvg, onClick, disabled = false }) {
       <style jsx>
         {`
           .button {
-            background-color: #a2d4ff;
+            // 일부러 이렇게 색깔 바꿈. figma가 이 색깔임.
+            background-color: #ffffff;
             color: #000;
             border: none;
             border-radius: 0.5rem;

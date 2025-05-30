@@ -1,10 +1,12 @@
 import Button from "../components/Button";
 import { login } from "../lib/api/user";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   return (
     <>
@@ -89,9 +91,15 @@ export default function Login() {
           <Button
             name="로그인"
             onClick={() => {
-              login({ username: username, password: password }).then((res) => {
-                console.log(res);
-              });
+              login({ username: username, password: password })
+                .then((res) => {
+                  navigate("/");
+                  console.log(res);
+                })
+                .catch((err) => {
+                  console.error("로그인 실패:", err);
+                  alert("로그인에 실패했습니다. 다시 시도해주세요.");
+                });
             }}
             iconSvg={
               <svg

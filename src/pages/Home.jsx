@@ -18,11 +18,15 @@ class BoardPost {
 
 export default function Home() {
   const navigate = useNavigate();
-  const myName = "test"; // TODO: getMe 기능 구현 후 삭제
+  //const myName = "test"; // TODO: getMe 기능 구현 후 삭제
 
   const [postType, setPostType] = useState("all"); // "all" or "my"
   const [posts, setPosts] = useState([]);
+  const [myName, setMyName] = useState("");
   useEffect(() => {
+    getMe().then((res) => {
+      setMyName(res.nickname);
+    });
     getPosts().then((res) => {
       console.log("response:", res);
       setPosts(
@@ -63,6 +67,11 @@ export default function Home() {
             margin-top: 6vh;
             margin-bottom: 2vh;
           }
+
+          .writing-post > button {
+            background-color: #a2d4ff !important;
+            border-color: #a2d4ff !important;
+          }
         `}
       </style>
       <div className="writing-post">
@@ -71,7 +80,7 @@ export default function Home() {
           onClick={() => {
             navigate("/write");
           }}
-          disabled={true}
+          disabled={!myName}
           iconSvg={
             <svg
               xmlns="http://www.w3.org/2000/svg"

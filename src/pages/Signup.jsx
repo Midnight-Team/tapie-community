@@ -1,11 +1,13 @@
 import Button from "../components/Button";
 import { register } from "../lib/api/user";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   return (
     <>
@@ -105,9 +107,15 @@ export default function Signup() {
                 username: username,
                 nickname: nickname,
                 password: password,
-              }).then((res) => {
-                console.log(res);
-              });
+              })
+                .then((res) => {
+                  console.log(res);
+                  navigate("/");
+                })
+                .catch((err) => {
+                  console.error("회원가입 실패:", err);
+                  alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+                });
             }}
             iconSvg={
               <svg

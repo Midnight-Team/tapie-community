@@ -1,7 +1,7 @@
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getMe } from "@/lib/api/user";
+import { getMe, logout } from "@/lib/api/user";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -9,26 +9,31 @@ export default function Navbar() {
   // const [user, setUser] = useState({ nickname: "아무거나" });
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try {
-  //       const userData = await getMe();
-  //       setUser(userData);
-  //     } catch (error) {
-  //       console.error("사용자 정보 로딩 실패:", error);
-  //       setUser(null);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userData = await getMe();
+        setUser(userData);
+      } catch (error) {
+        console.error("사용자 정보 로딩 실패:", error);
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  //   fetchUser();
-  // }, []);
+    fetchUser();
+  }, []);
 
   const handleLogout = async () => {
-    // TODO: 로그아웃 API 구현 후 연동하기기기기기기기기긱ㄱㄱㄱㄱ
-    setUser(null);
-    navigate("/");
+    try {
+      await logout();
+      setUser(null);
+      //navigate("/");
+      window.location.href = "/";
+    } catch (error) {
+      console.error("로그아웃 실패:", error);
+    }
   };
 
   return (
@@ -78,7 +83,9 @@ export default function Navbar() {
             <>
               <Button
                 name="로그인"
-                onClick={() => navigate("/login")}
+                onClick={() => {
+                  window.location.href = "/login"; //새로고침이 안됨 고칠것
+                }}
                 iconSvg={
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

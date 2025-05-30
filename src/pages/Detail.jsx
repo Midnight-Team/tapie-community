@@ -56,7 +56,8 @@ export default function PostDetail() {
         // }
         .post-detail-container {
           background-color: #ffffff;
-          min-height: 100vh;
+          max-height: 100vh;
+          min-height: 75vh;
           border: 1px solid #ebebeb;
           max-width: 800px;
           margin: 0 auto;
