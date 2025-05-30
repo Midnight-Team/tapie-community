@@ -3,11 +3,12 @@ import Button from "../components/Button";
 import Switch from "../components/Switch";
 import { useEffect, useState } from "react";
 import { getMe } from "../lib/api/user";
-import { getPosts } from "../lib/api/post";
+import { getPosts, deletePost } from "../lib/api/post";
 import { useNavigate } from "react-router-dom";
 
 class BoardPost {
-  constructor(author, title, content, createdAt, updatedAt) {
+  constructor(id, author, title, content, createdAt, updatedAt) {
+    this.id = id;
     this.author = author;
     this.title = title;
     this.content = content;
@@ -18,7 +19,6 @@ class BoardPost {
 
 export default function Home() {
   const navigate = useNavigate();
-  //const myName = "test"; // TODO: getMe 기능 구현 후 삭제
 
   const [postType, setPostType] = useState("all"); // "all" or "my"
   const [posts, setPosts] = useState([]);
@@ -33,6 +33,7 @@ export default function Home() {
         res.map(
           (post) =>
             new BoardPost(
+              post.id,
               post.author,
               post.title,
               post.content,
@@ -43,7 +44,6 @@ export default function Home() {
       );
     });
   }, []);
-  // TODO: 글 목록을 불러오는 로직 추가
   return (
     <>
       <style jsx>
@@ -112,13 +112,24 @@ export default function Home() {
               key={index}
               title={post.title}
               content={post.content}
+              id={post.id}
               username={post.author.nickname}
               timestamp={post.createdAt}
               isMe={post.author.nickname === myName}
               displayIcons={postType === "my"}
-              // TODO: getMe 기능 구현 후 수정
-              onEdit={() => {}}
-              onDelete={() => {}}
+              onEdit={() => {
+                navigate(`/edit/${post.id}`);
+              }}
+              onDelete={async () => {
+                if (window.confirm("정말 삭제하시겠습니까?")) {
+                  try {
+                    await deletePost(post.id);
+                    setPosts((prev) => prev.filter((_, i) => i !== index));
+                  } catch (err) {
+                    alert("삭제에 실패했습니다.");
+                  }
+                }
+              }}
             />
           ))}
         {/* {new Array(10).fill(null).map((_, index) => (

@@ -1,14 +1,35 @@
 import Button from "../components/Button";
-import { login } from "../lib/api/user";
-import { useState } from "react";
-import { createPost } from "../lib/api/post";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getPost, updatePost } from "../lib/api/post";
+import { useNavigate, useParams } from "react-router-dom";
+import { getMe } from "../lib/api/user";
 
-export default function Write() {
+export default function Edit() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
-  //const router = useRouter();
+  const { id } = useParams();
+
+  useEffect(() => {
+    async function fetchPost() {
+      try {
+        const post = await getPost(id);
+        const me = await getMe();
+        console.log("post.author:", post.author);
+        console.log("me.nickname:", me.nickname);
+        if (!post.author || post.author.nickname !== me.nickname) {
+          alert("본인이 작성한 글만 수정할 수 있습니다.");
+          navigate("/");
+          return;
+        }
+        setTitle(post.title);
+        setContent(post.content);
+      } catch (err) {
+        alert("게시글을 불러오지 못했습니다.");
+      }
+    }
+    fetchPost();
+  }, [id]);
 
   const handleSubmit = async () => {
     if (!title || !content) {
@@ -17,14 +38,11 @@ export default function Write() {
     }
 
     try {
-      await createPost({
-        title,
-        content,
-      });
-      alert("글이 등록되었습니다.");
+      await updatePost(id, { title, content });
+      alert("글이 수정되었습니다.");
       navigate("/");
     } catch (err) {
-      setError(err.message || "글 등록에 실패했습니다.");
+      setError(err.message || "글 수정에 실패했습니다.");
     }
   };
   return (
@@ -37,7 +55,6 @@ export default function Write() {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-
           font-family: Wanted Sans, Inter, sans-serif;
         }
 
@@ -53,7 +70,7 @@ export default function Write() {
           width: 40%;
           padding: 1.5rem 1.25rem;
           max-width: 35rem;
-          border: 1px solid rgb(0, 0, 0);
+          border: 1px solid #000;
           border-radius: 0.75rem;
         }
 
@@ -101,7 +118,7 @@ export default function Write() {
         }
       `}</style>
       <section className="writing">
-        <p>글 작성</p>
+        <p>글 수정</p>
         <div className="container">
           <div>
             <span>제목</span>
@@ -127,7 +144,7 @@ export default function Write() {
           </div>
 
           <Button
-            name="등록하기"
+            name="수정하기"
             onClick={handleSubmit}
             iconSvg={
               <svg

@@ -59,6 +59,7 @@ export default function PostDetail() {
           max-height: 100vh;
           min-height: 75vh;
           border: 1px solid #ebebeb;
+          border-radius: 0.75rem;
           max-width: 800px;
           margin: 0 auto;
           padding: 1.5vh 2vw;

@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Post({
   title,
   content,
+  id,
   username,
   timestamp,
   isMe,
@@ -8,6 +11,8 @@ export default function Post({
   onEdit,
   onDelete,
 }) {
+  const navigate = useNavigate();
+
   return (
     <>
       <style jsx>
@@ -18,6 +23,7 @@ export default function Post({
             border: 1px solid #ebebeb;
             border-radius: 0.5rem;
             padding: 0 1.5vw;
+            min-height: 15rem;
 
             font-family: Wanted Sans, Inter, sans-serif;
           }
@@ -26,6 +32,13 @@ export default function Post({
             margin: 0.5rem 0;
             font-size: 1.5rem;
             font-weight: bold;
+          }
+
+          .post-title:hover {
+            color: #0064ff;
+            cursor: pointer;
+            text-decoration: underline;
+            transition: color 0.1s ease;
           }
 
           .post-username {
@@ -79,7 +92,17 @@ export default function Post({
             gap: "0.5rem",
           }}
         >
-          <p className="post-title">{title}</p>
+          <p
+            className="post-title"
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              navigate(`/details/${id}`);
+            }}
+          >
+            {title}
+          </p>
 
           {isMe && displayIcons && (
             <div
@@ -131,7 +154,14 @@ export default function Post({
             </div>
           )}
         </div>
-        <div>
+        <div
+          style={{
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            navigate(`/details/${id}`);
+          }}
+        >
           <span className="post-username">
             {username} {" · "}
           </span>
@@ -139,7 +169,17 @@ export default function Post({
             {new Date(timestamp).toLocaleDateString()}
           </span>
         </div>
-        <p className="post-content">{content}</p>
+        <p
+          className="post-content"
+          style={{
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            navigate(`/details/${id}`);
+          }}
+        >
+          {content}
+        </p>
       </div>
     </>
   );
