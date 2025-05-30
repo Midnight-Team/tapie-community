@@ -84,7 +84,7 @@ export default function Navbar() {
               <Button
                 name="로그인"
                 onClick={() => {
-                  window.location.href = "/login"; //새로고침이 안됨 고칠것
+                  navigate("/login");
                 }}
                 iconSvg={
                   <svg

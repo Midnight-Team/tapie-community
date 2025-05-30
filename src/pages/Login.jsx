@@ -93,7 +93,7 @@ export default function Login() {
             onClick={() => {
               login({ username: username, password: password })
                 .then((res) => {
-                  navigate("/");
+                  window.location.href = "/";
                   console.log(res);
                 })
                 .catch((err) => {
