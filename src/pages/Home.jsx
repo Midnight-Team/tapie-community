@@ -124,7 +124,23 @@ export default function Home() {
                 if (window.confirm("정말 삭제하시겠습니까?")) {
                   try {
                     await deletePost(post.id);
-                    setPosts((prev) => prev.filter((_, i) => i !== index));
+
+                    const updatedPosts = await getPosts();
+                    setPosts(
+                      updatedPosts.map(
+                        (post) =>
+                          new BoardPost(
+                            post.id,
+                            post.author,
+                            post.title,
+                            post.content,
+                            post.createdAt,
+                            post.updatedAt
+                          )
+                      )
+                    );
+
+                    alert("게시글이 삭제되었습니다.");
                   } catch (err) {
                     alert("삭제에 실패했습니다.");
                   }
