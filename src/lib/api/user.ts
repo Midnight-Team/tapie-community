@@ -50,10 +50,12 @@ export async function register(data: {
   username: string;
   nickname: string;
   password: string;
-}): Promise<User> {
+}): Promise<{ message: string }> {
   try {
     await client.post("/auth/register", data);
-    return await getMe();
+    return {
+      message: `${data.nickname}님, 회원가입이 성공적으로 완료되었습니다!`,
+    };
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       if (error.response) {

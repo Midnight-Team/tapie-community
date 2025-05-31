@@ -103,17 +103,21 @@ export default function Signup() {
           <Button
             name="회원가입"
             onClick={() => {
-              // TODO: FIX REGISTER API
               register({
                 username: username,
                 nickname: nickname,
                 password: password,
               })
                 .then((res) => {
-                  console.log(res);
+                  alert("회원가입이 완료되었습니다");
+                  navigate("/");
                 })
                 .catch((err) => {
-                  navigate("/");
+                  alert(
+                    err instanceof Error
+                      ? err.message
+                      : "회원가입에 실패했습니다"
+                  );
                 });
             }}
             iconSvg={
