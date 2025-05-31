@@ -125,21 +125,6 @@ export default function Home() {
                   try {
                     await deletePost(post.id);
                     setPosts((prev) => prev.filter((_, i) => i !== index));
-                    alert("삭제되었습니다.");
-                    const updatedPosts = await getPosts();
-                    setPosts(
-                      updatedPosts.map(
-                        (post) =>
-                          new BoardPost(
-                            post.id,
-                            post.author,
-                            post.title,
-                            post.content,
-                            post.createdAt,
-                            post.updatedAt
-                          )
-                      )
-                    );
                   } catch (err) {
                     alert("삭제에 실패했습니다.");
                   }
