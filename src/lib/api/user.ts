@@ -54,7 +54,7 @@ export async function register(data: {
   try {
     await client.post("/auth/register", data);
     return {
-      message: `${data.nickname}님, 회원가입이 성공적으로 완료되었습니다!`,
+      message: `회원가입이 성공적으로 완료되었습니다`,
     };
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
